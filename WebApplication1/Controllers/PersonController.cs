@@ -10,6 +10,7 @@ namespace WebApplication1.Controllers
 {
     public class PersonController : ApiController
     {
+        [HttpGet]
         public IEnumerable<People> GetPeople()
         {
             using (PersonDBContext dbContext = new PersonDBContext())
@@ -26,7 +27,8 @@ namespace WebApplication1.Controllers
             }
         }
 
-        public void AddPerson(People person)
+        [HttpPost]
+        public void AddPerson([FromBody] People person)
         {
             using (PersonDBContext dbContext = new PersonDBContext())
             {
@@ -35,7 +37,8 @@ namespace WebApplication1.Controllers
             }
         }
 
-        public void RemovePerson(People person)
+        [HttpDelete]
+        public void RemovePerson([FromBody] People person)
         {
             using (PersonDBContext dbContext = new PersonDBContext())
             {
@@ -44,6 +47,7 @@ namespace WebApplication1.Controllers
             }
         }
 
+        [HttpPut]
         public void EditPerson(int id, People updatedPerson)
         {
             using (PersonDBContext dbContext = new PersonDBContext())
