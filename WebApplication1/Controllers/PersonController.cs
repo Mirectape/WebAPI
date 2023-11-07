@@ -38,11 +38,11 @@ namespace WebApplication1.Controllers
         }
 
         [HttpDelete]
-        public void RemovePerson([FromBody] People person)
+        public void RemovePerson(int id)
         {
             using (PersonDBContext dbContext = new PersonDBContext())
             {
-                dbContext.People.Remove(person);
+                dbContext.People.Remove(dbContext.People.Where(p => p.ID == id).Single());
                 dbContext.SaveChanges();
             }
         }
@@ -53,7 +53,12 @@ namespace WebApplication1.Controllers
             using (PersonDBContext dbContext = new PersonDBContext())
             {
                 var editPerson = dbContext.People.Where((p) => p.ID == id).Single();
-                editPerson = updatedPerson;
+                editPerson.FirstName = updatedPerson.FirstName;
+                editPerson.SecondName = updatedPerson.SecondName;
+                editPerson.PhoneNumber = updatedPerson.PhoneNumber;
+                editPerson.PaternalName = updatedPerson.PaternalName;
+                editPerson.Address = updatedPerson.Address;
+                editPerson.Description = updatedPerson.Description;
                 dbContext.SaveChanges();
             }
         }
